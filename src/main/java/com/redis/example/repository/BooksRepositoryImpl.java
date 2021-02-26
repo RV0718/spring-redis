@@ -12,11 +12,11 @@ import java.util.List;
 public class BooksRepositoryImpl implements BooksRepository {
 
     private static final String KEY = "Book";
-    private RedisTemplate<Integer, Books> redisTemplate;
+    private RedisTemplate<Integer, Object> redisTemplate;
     private HashOperations hashOperations; //to access Redis cache
 
 
-    public BooksRepositoryImpl(final RedisTemplate<Integer, Books> redisTemplate) {
+    public BooksRepositoryImpl(final RedisTemplate<Integer, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
         hashOperations = redisTemplate.opsForHash();
     }
