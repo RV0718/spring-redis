@@ -19,6 +19,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'redis.clients:jedis'
     implementation 'org.springdoc:springdoc-openapi-ui:1.2.32'
+    implementation 'commons-pool:commons-pool:1.5.4'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
