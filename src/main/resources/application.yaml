@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: spring-redis
+  cache:
+    type: redis
+
+
+server:
+  port: 8080
+
+
+redis:
+  hostname: localhost
+  port: 6379
+
+
+#URL to see the swagger/open API 3.0 in motion use http://localhost:8080/swagger-ui/index.html
+springdoc:
+  api-docs:
+    path: /api-docs
+
+
+
