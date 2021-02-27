@@ -1,5 +1,9 @@
 # Spring Redis
 
+# Table of Contents
+1. [What is Redis.](#What is Redis.)
+2. [TO DO](#TO DO)
+
 ## What is Redis.
 
  - Redis is a powerful and extremely fast in memory db.   
