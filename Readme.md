@@ -6,15 +6,12 @@
 - [Installation:](#installation-)
     + [Two methods:](#two-methods-)
     + [Installed and configure on MAC:](#installed-and-configure-on-mac-)
-  * [Backup](#backup)
-  * [Redis Sentinel](#redis-sentinel)
-  * [Redis Auth](#redis-auth)
+- [Backup](#backup)
+- [Redis Sentinel](#redis-sentinel)
+- [Redis Auth](#redis-auth)
 - [Steps to run the application:](#steps-to-run-the-application-)
     + [Run both app and redis locally:](#run-both-app-and-redis-locally-)
 - [TO DO](#to-do)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 
 ## What is Redis.
 
@@ -113,14 +110,10 @@ Extra links:
  * Execute below command to run the boot app
  ```
   $./gradlew bootRun
-
- ```
- 
+ ``` 
  
  ## TO DO
  * Add steps to run the app locally
  * Add Docker file to run app and redis both on docker.
  * Add steps to access the app via docker.
  * Add steps to run both container in K8s.
- 
- 
