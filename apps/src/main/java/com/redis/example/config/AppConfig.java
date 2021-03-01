@@ -1,6 +1,5 @@
 package com.redis.example.config;
 
-import com.redis.example.model.Books;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,11 +10,11 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 public class AppConfig {
 
-    //    @Value("${redis.hostname:localhost}")
     @Value("${spring.redis.host}")
     private String redisHost;
 
@@ -80,6 +79,7 @@ public class AppConfig {
     public RedisTemplate<Integer, Object> redisTemplate() {
         final RedisTemplate<Integer, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
         return redisTemplate;
     }
 }

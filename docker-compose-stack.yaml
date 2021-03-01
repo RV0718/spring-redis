@@ -1,0 +1,38 @@
+version: '3.1'
+
+networks:
+  rmoff_services:
+    name: rmoff_services
+
+services:
+
+  #############
+  # Backend APP Service
+  #############
+  backend:
+    build: apps/.
+    #    image: {repo}/{image_name}:{image_tag}  # use the image attr if you want to pull the image from docker repo
+    container_name: backend
+    networks:
+      - rmoff_services
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+    environment:
+      REDIS_HOST: redis
+
+  #############
+  # REDIS
+  #############
+
+  redis:
+#    image: redis:6.2.0-alpine   # use the image attr if you want to pull the image from docker repo
+    build: redis/.
+    container_name: redis
+    volumes:
+      -
+    networks:
+      - rmoff_services
+    ports:
+      - "6379:6379"

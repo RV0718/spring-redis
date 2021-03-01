@@ -2,16 +2,26 @@
 
 ## Table of Contents
 - [What is Redis.](#what-is-redis)
-- [Use Case:](#use-case-)
-- [Installation:](#installation-)
-    + [Two methods:](#two-methods-)
-    + [Installed and configure on MAC:](#installed-and-configure-on-mac-)
+- [Use Case](#use-case)
+- [Installation](#installation)
+    + [Two methods](#two-methods)
+    + [Installed and configure on MAC](#installed-and-configure-on-mac)
 - [Backup](#backup)
+- [Monitor](#monitor)
 - [Redis Sentinel](#redis-sentinel)
 - [Redis Auth](#redis-auth)
-- [Steps to run the application:](#steps-to-run-the-application-)
-    + [Run both app and redis locally:](#run-both-app-and-redis-locally-)
+- [Steps to run the application](#steps-to-run-the-application)
+    + [Run both app and redis locally](#run-both-app-and-redis-locally)
+    + [Run both app and redis inside a container](#run-both-app-and-redis-inside-a-container)
+    + [Run both app and redis inside a container using docker-compose](#run-both-app-and-redis-inside-a-container-using-docker-compose)
+- [API Endpoint to access the app](#api-endpoint-to-access-the-app)
 - [TO DO](#to-do)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 
 ## What is Redis.
 
@@ -26,21 +36,21 @@
  - No query language.  
 
 
-## Use Case:
- - User Sessin Management
+## Use Case
+ - User Session Management
  - Caching.
  - Pub/Sub (Queues & Notification)
- - LeaderbOards for gaming apps
+ - Leaderboards for gaming apps
  - Geospatial
  
  
-## Installation:
-#### Two methods:
- - Download and installed.
- - Using package manager like brew (mac).
+## Installation
+#### Two methods
+ - Download and installed. (Please use [Redis Download](https://redis.io/download) to see the steps to configure the redis in other OS)
+ - Using package manager like brew (mac). (I will be using this to configure redis)
  
 
-#### Installed and configure on MAC:
+#### Installed and configure on MAC
  - Open the terminal and type
    ```
    $ brew install redis
@@ -58,6 +68,15 @@
    $ redis-cli -p 6379
    127.0.0.1:6379> 
    ```
+   Checking redis status execute below
+   ```
+   $ redis-cli ping
+   PONG
+   ```
+   killing redis server execute below
+   ```
+   127.0.0.1:6379> shutdown
+   ```
    
  - Some sample commands on redis-cli
    ```
@@ -72,24 +91,29 @@
     "red"
     127.0.0.1:6379> 
    ```  
-> **_NOTE:_**  For other options and for other operating systems please use [Redis Download](https://redis.io/download).
 
-
-
-### Backup
+## Backup
    Below command will create the dump/backup as per the path specified in redis.conf file. 
    ```
    $ save
    ```
    
-### Redis Sentinel
+## Monitor
+   Run the below command from terminal and you'll be abe to see everything happening on redis
+   ```
+    $ redis-cli -p 6379
+    127.0.0.1:6379> Monitor
+    OK
+   ```
+    
+## Redis Sentinel
   - It is a system, designed to help managing Redis instances.
   - It is there to provide HA by monitoring, notifying, and providing instances failover. 
   - It check whether master and slave are working properly or not.
   - If Master goes down, it's the sentinel responsibility to make one of the slave to master.  
   
   
-### Redis Auth
+## Redis Auth
   - Redis auth help to secure database. We can do that either via redis.conf or via cli.
   - Cli
     ```
@@ -104,16 +128,53 @@ Extra links:
  - Redis GUI - [Redis Desktop](https://rdm.dev/).
  
  
-## Steps to run the application:
-#### Run both app and redis locally:
- * Follow above steps to run Redis locally.
- * Execute below command to run the boot app
+## Steps to run the application
+#### Run both app and redis locally
+ * Follow [these steps](#installed-and-configure-on-mac) to configure and run Redis locally.
+ * Execute below command to run the boot app from apps directory
  ```
   $./gradlew bootRun
  ``` 
+ * Alternatively, first build the jar and then run **java -jar** command as below
+ ```
+  $./gradlew build
+ ```
+ ```
+  $ java -jar {name of the generated jar}
+ ```
+#### Run both app and redis inside a container
+  * Execute the below command from redis folder
+  ```
+  $ docker network create rmoff_services
+  $ docker build -t redis .
+  $ docker run -d -p 6379:6379 --network=rmoff_services --name redis -h redis redis
+  ```
+  * Execute below command to build an image of the app
+  ```
+  $ docker build -t app .
+  ```
+  Verify the image
+  ```
+  $ docker image ls -a
+  ```
+  Run the app
+  ```
+  $ docker run -d --name app -e "redis.host=redis" -p 8080:8080 --network=rmoff_services spring-redis
+  ```
+#### Run both app and redis inside a container using docker-compose
+  * Execute below command only and you're good to go
+  ```
+  $ docker-compose -f docker-compose-stack.yaml up -d
+  ```
+
+## API Endpoint to access the app
+  - http://localhost:8080/api/book/health
+  - http://localhost:8080/api/book/save
+  - http://localhost:8080/api/book/all
+  - http://localhost:8080/api/book/delete/{id}     
  
  ## TO DO
- * Add steps to run the app locally
- * Add Docker file to run app and redis both on docker.
- * Add steps to access the app via docker.
+
  * Add steps to run both container in K8s.
+  
+  

@@ -33,6 +33,7 @@ public class BooksRepositoryImpl implements BooksRepository {
         hashOperations.entries(KEY).forEach((k, v) -> {
             rlist.add((Books) v);
         });
+
         return rlist;
     }
 

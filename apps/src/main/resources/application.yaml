@@ -4,7 +4,9 @@ spring:
   cache:
     type: redis
   redis:
-    host: localhost
+    # use localhost if you're running redis locally
+    # use redis if you're running redis in a docker
+    host: ${REDIS_HOST}
     port: 6379
     password:
     jedis:
@@ -17,7 +19,7 @@ spring:
 server:
   port: 8080
 
-#URL to see the swagger/open API 3.0 in motion use http://localhost:8080/swagger-ui/index.html
+#URL to see the swagger/open API 3.0 in motion use http://localhost:8080/swagger-ui.html
 springdoc:
   api-docs:
     path: /api-docs
