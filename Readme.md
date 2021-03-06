@@ -17,12 +17,6 @@
 - [API Endpoint to access the app](#api-endpoint-to-access-the-app)
 - [TO DO](#to-do)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
-
 ## What is Redis.
 
  - Redis is a powerful and extremely fast in memory db.   
@@ -166,6 +160,11 @@ Extra links:
   ```
   $ docker-compose -f docker-compose-stack.yaml up -d
   ```
+#### Run both in K8s
+  * Execute below command. This command will deploy the application in k8s and expose the same via service using nodeport.
+  ```
+  $ kubectl apply -f k8s-deployment.yaml
+  ```  
 
 ## API Endpoint to access the app
   - http://localhost:8080/api/book/health
