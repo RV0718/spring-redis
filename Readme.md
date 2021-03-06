@@ -14,6 +14,7 @@
     + [Run both app and redis locally](#run-both-app-and-redis-locally)
     + [Run both app and redis inside a container](#run-both-app-and-redis-inside-a-container)
     + [Run both app and redis inside a container using docker-compose](#run-both-app-and-redis-inside-a-container-using-docker-compose)
+- [OpenAPI](#OpenAPI)    
 - [API Endpoint to access the app](#api-endpoint-to-access-the-app)
 - [TO DO](#to-do)
 
@@ -156,18 +157,22 @@ Extra links:
   $ docker run -d --name app -e "redis.host=redis" -p 8080:8080 --network=rmoff_services spring-redis
   ```
 #### Run both app and redis inside a container using docker-compose
-  * Execute below command only and you're good to go
+  * Execute below command to deploy the app stack altogether
   ```
   $ docker-compose -f docker-compose-stack.yaml up -d
   ```
 #### Run both in K8s
-  * Execute below command. This command will deploy the application in k8s and expose the same via service using nodeport.
+  * Execute below command to deploy the application in k8s and expose the same via service using nodeport.
   ```
   $ kubectl apply -f k8s-deployment.yaml
   ```  
+  
+## OpenAPI
+  * http://localhost:8080/swagger-ui.html
+  * http://localhost:8080/api-docs  
 
 ## API Endpoint to access the app
-  - http://localhost:8080/api/book/health
+  - http://localhost:8080/api/health
   - http://localhost:8080/api/book/save
   - http://localhost:8080/api/book/all
   - http://localhost:8080/api/book/delete/{id}     

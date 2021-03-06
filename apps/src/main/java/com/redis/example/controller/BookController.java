@@ -15,23 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.redis.example.constants.ApplicationConstants.ALL_EP;
+import static com.redis.example.constants.ApplicationConstants.API_BOOK;
+import static com.redis.example.constants.ApplicationConstants.DELETE_EP;
+import static com.redis.example.constants.ApplicationConstants.SAVE_EP;
+
 @RestController
-@RequestMapping("/api/book")
+@RequestMapping(API_BOOK)
 public class BookController {
 
     private final static Logger LOG = LoggerFactory.getLogger(BookController.class);
 
-
     @Autowired
     BooksRepository booksRepository;
 
-    @GetMapping("/health")
-    public String checkHealthStatus() {
-        return "{\"health" + " :" + "UP\"}";
-    }
-
-
-    @PostMapping("/save")
+    @PostMapping(SAVE_EP)
     public String saveBooks(@RequestBody Books books) {
         try {
             booksRepository.save(books);
@@ -42,13 +40,13 @@ public class BookController {
         return "Books Saved Successfully";
     }
 
-    @GetMapping("/all")
+    @GetMapping(ALL_EP)
     public List<Books> getAllBooks() {
         return booksRepository.findAll();
     }
 
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping(DELETE_EP + "/{id}")
     public String deleteUserById(@PathVariable("id") Integer id) {
         try {
             booksRepository.delete(id);
@@ -57,8 +55,6 @@ public class BookController {
             return "Error while deleting book";
         }
         return "Books Deleted Successfully";
-
-
     }
 }
 
