@@ -4,6 +4,10 @@ networks:
   rmoff_services:
     name: rmoff_services
 
+
+volumes:
+  ${PWD}:
+
 services:
 
   #############
@@ -27,11 +31,13 @@ services:
   #############
 
   redis:
-#    image: redis:6.2.0-alpine   # use the image attr if you want to pull the image from docker repo
-    build: redis/.
+    image: redis:6.2.1-alpine   # use the image attr if you want to pull the image from docker repo
+#    build: redis/.
     container_name: redis
+    command: ["redis-server","/usr/local/etc/redis/redis.conf"]
     volumes:
-      -
+      - ${PWD}:/usr/local/var/db/redis/
+      - redis:/usr/local/etc/redis
     networks:
       - rmoff_services
     ports:
