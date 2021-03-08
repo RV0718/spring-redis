@@ -6,7 +6,8 @@ networks:
 
 
 volumes:
-  ${PWD}:
+  myapp:
+  redis:
 
 services:
 
@@ -36,7 +37,7 @@ services:
     container_name: redis
     command: ["redis-server","/usr/local/etc/redis/redis.conf"]
     volumes:
-      - ${PWD}:/usr/local/var/db/redis/
+      - myapp:/usr/local/var/db/redis/
       - redis:/usr/local/etc/redis
     networks:
       - rmoff_services

@@ -138,26 +138,25 @@ Extra links:
   $ java -jar {name of the generated jar}
  ```
 #### Run both app and redis inside a container
-  * Execute the below command from redis folder
+  * Execute the below command from redis directory
   ```
   $ docker network create rmoff_services
   $ docker build -t redis .
   $ docker run -d -p 6379:6379 --network=rmoff_services --name redis -h redis redis
   ```
-  * Execute below command to build an image of the app
+  * Build an image of the app
   ```
   $ docker build -t app .
   ```
-  Verify the image
+  * Verify the image
   ```
   $ docker image ls -a
   ```
-  Run the app
+  * Run the app
   ```
   $ docker run -d --name app -e "redis.host=redis" -p 8080:8080 --network=rmoff_services spring-redis
   ```
 #### Run both app and redis inside a container using docker-compose
-  * Execute below command to deploy the app stack altogether
   ```
   $ docker-compose -f docker-compose-stack.yaml up -d
   ```
