@@ -52,11 +52,11 @@
    ```
  - Once it done, type **redis-server** to start the redis server with default configuration provided by redis.
    ```
-   $ redis-server
+   $ redis-server {path to the redis.conf}
    ```   
  - Open another terminal and type **redis-cli**, to open the redis cli.
    ```
-   $ redis-cli
+   $ redis-cli -p 6379
    ```  
    You will see the output something like below:
    ```
@@ -154,7 +154,7 @@ Extra links:
   ```
   * Run the app
   ```
-  $ docker run -d --name app -e "redis.host=redis" -p 8080:8080 --network=rmoff_services spring-redis
+  $ docker run -d --name app -e "REDIS_HOST=redis" -p 8080:8080 --network=rmoff_services spring-redis
   ```
 #### Run both app and redis inside a container using docker-compose
   ```

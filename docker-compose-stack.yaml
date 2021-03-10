@@ -6,8 +6,8 @@ networks:
 
 
 volumes:
-  myapp:
   redis:
+  myapp:
 
 services:
 
@@ -34,11 +34,12 @@ services:
   redis:
     image: redis:6.2.1-alpine   # use the image attr if you want to pull the image from docker repo
 #    build: redis/.
-    container_name: redis
-    command: ["redis-server","/usr/local/etc/redis/redis.conf"]
+    hostname: "redis"
+    container_name: "redis"
+    command: ["redis-server","/usr/local/redis.conf"]
     volumes:
-      - myapp:/usr/local/var/db/redis/
-      - redis:/usr/local/etc/redis
+      - ./myapp:/usr/local/var/db/redis/
+      - ./redis/*.conf:/usr/local/redis.conf
     networks:
       - rmoff_services
     ports:

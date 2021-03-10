@@ -15,4 +15,4 @@ ARG JAR_FILE_NAME=/app/app.jar
 
 COPY --from=build /home/gradle/src/build/libs/*.jar ${JAR_FILE_NAME}
 
-ENTRYPOINT ["java","-jar","/app/app.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/app.jar"]
