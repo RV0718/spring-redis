@@ -52,10 +52,10 @@ public class AppConfig {
     @Bean
     public JedisConnectionFactory redisConnectionFactory() {
         final RedisStandaloneConfiguration standaloneConfig = new RedisStandaloneConfiguration(redisHost, port);
-        if(StringUtils.isNotEmpty(redisPassword)){
+        if (StringUtils.isNotEmpty(redisPassword)) {
             standaloneConfig.setPassword(RedisPassword.of(redisPassword));
         }
-        return new JedisConnectionFactory(standaloneConfig,getJedisClientConfiguration());
+        return new JedisConnectionFactory(standaloneConfig, getJedisClientConfiguration());
     }
 
 

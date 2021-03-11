@@ -5,9 +5,8 @@ networks:
     name: rmoff_services
 
 
-volumes:
-  redis:
-  myapp:
+# volumes:
+  # $PWD/redis:
 
 services:
 
@@ -18,14 +17,17 @@ services:
     build: apps/.
     #    image: {repo}/{image_name}:{image_tag}  # use the image attr if you want to pull the image from docker repo
     container_name: backend
+    restart: always
     networks:
       - rmoff_services
     ports:
       - "8080:8080"
     depends_on:
       - redis
+    links:
+      - "redis"
     environment:
-      REDIS_HOST: redis
+      REDIS_HOST: "redis"
 
   #############
   # REDIS
@@ -33,13 +35,17 @@ services:
 
   redis:
     image: redis:6.2.1-alpine   # use the image attr if you want to pull the image from docker repo
-#    build: redis/.
+    # build: redis/.
     hostname: "redis"
     container_name: "redis"
-    command: ["redis-server","/usr/local/redis.conf"]
+    restart: always
+    command: ["redis-server","/usr/local/etc/redis/redis.conf"]
+#    volumes:
+#      - ./myapp:/usr/local/var/db/redis/
+#      - ./redis:/usr/local
     volumes:
-      - ./myapp:/usr/local/var/db/redis/
-      - ./redis/*.conf:/usr/local/redis.conf
+      # - $PWD/redis-data:/data
+      - $PWD/redis/redis.conf:/usr/local/etc/redis/redis.conf
     networks:
       - rmoff_services
     ports:
