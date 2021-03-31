@@ -36,4 +36,4 @@ spec:
       nodePort: 30090
   selector:
     app: redis-server
-  type: ClusterIp
+  type: ClusterIP
