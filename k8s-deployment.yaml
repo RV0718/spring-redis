@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend-service
-          image: parthanathdocker/backend-service:latest
+          image: {regisytry-id}/{image-name}:{tag}
           env:
             - name: REDIS_HOST
               value: redis
