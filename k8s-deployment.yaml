@@ -1,65 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
-  labels:
-    app: backend
+  name: backend-service
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: backend
-  template:
+      app: backend-service
+  replicas: 1
+  template: # template for the pods
     metadata:
       labels:
-        app: backend
+        app: backend-service
     spec:
       containers:
-        - name: backend
-          image: rv0718/spring-redis:1.0.0-SNAPSHOT
+        - name: backend-service
+          image: parthanathdocker/backend-service:latest
           env:
             - name: REDIS_HOST
               value: redis
-          ports:
-            - containerPort: 8080
-
-#---
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: redis
-#  labels:
-#    app: redis
-#spec:
-#  replicas: 1
-#  selector:
-#    matchLabels:
-#      app: redis
-#  template:
-#    metadata:
-#      labels:
-#        app: redis
-#    spec:
-#      containers:
-#        - name: redis
-#          image: redis:6.2.0-alpine
-#          env:
-#            - name: REDIS_HOST
-#              value: redis
-#          ports:
-#            - containerPort: 6379
 ---
-apiVersion: v1
-kind: Service
+
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: backend-service
-  labels:
-    app: backend
+  name: redis-server
 spec:
-  type: NodePort
-  ports:
-  - targetPort: 8080
-    port: 8080
-    nodePort: 30008
   selector:
-    app: backend
+    matchLabels:
+      app: redis-server
+  replicas: 1
+  template: # template for the pods
+    metadata:
+      labels:
+        app: redis-server
+    spec:
+      containers:
+        - name: redis-server
+          image: redis
+
+
+
